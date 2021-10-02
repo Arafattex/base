@@ -1482,14 +1482,16 @@ static int mtk_hdmi_dt_parse_pdata(struct mtk_hdmi *hdmi,
 
 	mem = platform_get_resource(pdev, IORESOURCE_MEM, 0);
 	hdmi->regs = devm_ioremap_resource(dev, mem);
-	if (IS_ERR(hdmi->regs))
+	if (IS_ERR(hdmi->regs)) {
 		ret = PTR_ERR(hdmi->regs);
 		goto put_device;
+	}
 
 	port = of_graph_get_port_by_id(np, 1);
 	if (!port) {
 		dev_err(dev, "Missing output port node\n");
 		return -EINVAL;
+		goto put_device;
 	}
 
 	ep = of_get_child_by_name(port, "endpoint");
@@ -1506,8 +1508,7 @@ static int mtk_hdmi_dt_parse_pdata(struct mtk_hdmi *hdmi,
 		dev_err(dev, "Missing connector/bridge node for endpoint %s\n",
 			ep->full_name);
 		of_node_put(ep);
-		ret = -EINVAL;
-		goto put_device;
+		return -EINVAL;
 	}
 	of_node_put(ep);
 
