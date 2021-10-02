@@ -22,7 +22,7 @@ make -j$(nproc --all) O=outL \
                       CROSS_COMPILE_ARM32=${PWD}/clang-13/aaa/bin/arm-linux-gnueabi- 
 bp=${PWD}/outL
 DATE=$(date "+%Y%m%d-%H%M")
-ZIPNAME="Shas-Dream-Lancelot-R-vendor"
+ZIPNAME="Pizza_Shas-Dream-Lancelot-R-vendor"
 cd ${PWD}/AnyKernel3-master
 rm *.zip *-dtb 
 cp $bp/arch/arm64/boot/Image.gz-dtb .

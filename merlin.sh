@@ -22,7 +22,7 @@ make -j$(nproc --all) O=outM \
                       CROSS_COMPILE_ARM32=${PWD}/clang-13/aaa/bin/arm-linux-gnueabi- 
 bp=${PWD}/outM
 DATE=$(date "+%Y%m%d-%H%M")
-ZIPNAME="Shas-Dream-Merlin-R-vendor"
+ZIPNAME="Pizza_Shas-Dream-Merlin-R-vendor"
 cd ${PWD}/AnyKernel3-master
 rm *.zip *-dtb 
 cp $bp/arch/arm64/boot/Image.gz-dtb .
