@@ -44,7 +44,7 @@ menu "MTK Energy Aware Scheduler Plus"
 config MTK_SCHED_EAS_POWER_SUPPORT
 	bool "Enable MTK power calculation for EAS"
 	depends on MTK_UNIFY_POWER
-	default n
+	default y
 	help
 	  Power calculation for mtk Soc.
 	  According to platform characters(share-buck..etc),
@@ -54,7 +54,7 @@ config MTK_SCHED_EAS_POWER_SUPPORT
 config MTK_SCHED_MULTI_GEARS
 	bool "MTK enhancmenet for mutl CPU gears"
 	depends on MTK_SCHED_EAS_POWER_SUPPORT
-	default n
+	default y
 	help
 	  MTK enhancement for multi CPU gears
 	  1. share buck aware
@@ -64,7 +64,7 @@ config MTK_SCHED_MULTI_GEARS
 config MTK_SCHED_BL_FIRST
 	bool "MTK enhancmenet for mutl CPU gears if hope put BL first"
 	depends on MTK_SCHED_MULTI_GEARS
-	default n
+	default y
 	help
 	  Default is sorting the CPU domain from little to Big.
 	  This KCONFIG will support to prefer to
