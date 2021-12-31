@@ -3180,10 +3180,6 @@ static int binder_translate_binder(struct flat_binder_object *fp,
 		ret = -EINVAL;
 		goto done;
 	}
-	if (security_binder_transfer_binder(proc->cred, target_proc->cred)) {
-		ret = -EPERM;
-		goto done;
-	}
 
 	ret = binder_inc_ref_for_node(target_proc, node,
 			fp->hdr.type == BINDER_TYPE_BINDER,
@@ -3226,10 +3222,7 @@ static int binder_translate_handle(struct flat_binder_object *fp,
 				  proc->pid, thread->pid, fp->handle);
 		return -EINVAL;
 	}
-	if (security_binder_transfer_binder(proc->cred, target_proc->cred)) {
-		ret = -EPERM;
-		goto done;
-	}
+
 
 	binder_node_lock(node);
 	if (node->proc == target_proc) {
@@ -3309,11 +3302,6 @@ static int binder_translate_fd(int fd,
 				  proc->pid, thread->pid, fd);
 		ret = -EBADF;
 		goto err_fget;
-	}
-	ret = security_binder_transfer_file(proc->cred, target_proc->cred, file);
-	if (ret < 0) {
-		ret = -EPERM;
-		goto err_security;
 	}
 
 	target_fd = task_get_unused_fd_flags(target_proc, O_CLOEXEC);
@@ -3756,13 +3744,6 @@ static void binder_transaction(struct binder_proc *proc,
 		if (WARN_ON(proc == target_proc)) {
 			return_error = BR_FAILED_REPLY;
 			return_error_param = -EINVAL;
-			return_error_line = __LINE__;
-			goto err_invalid_target_handle;
-		}
-		if (security_binder_transaction(proc->cred,
-						target_proc->cred) < 0) {
-			return_error = BR_FAILED_REPLY;
-			return_error_param = -EPERM;
 			return_error_line = __LINE__;
 			goto err_invalid_target_handle;
 		}
@@ -5627,9 +5608,6 @@ static int binder_ioctl_set_ctx_mgr(struct file *filp,
 		ret = -EBUSY;
 		goto out;
 	}
-	ret = security_binder_set_context_mgr(proc->cred);
-	if (ret < 0)
-		goto out;
 	if (uid_valid(context->binder_context_mgr_uid)) {
 		if (!uid_eq(context->binder_context_mgr_uid, curr_euid)) {
 			pr_err("BINDER_SET_CONTEXT_MGR bad uid %d != %d\n",

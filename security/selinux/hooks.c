@@ -2202,7 +2202,7 @@ static int selinux_binder_set_context_mgr(const struct cred *mgr)
 {
 
 	return avc_has_perm(current_sid(), cred_sid(mgr), SECCLASS_BINDER,
-			    BINDER__SET_CONTEXT_MGR, NULL);
+			    BINDER__SET_CONTEXT_MGR, NULL ,NULL);
 }
 
 static int selinux_binder_transaction(const struct cred *from,
@@ -2232,7 +2232,7 @@ static int selinux_binder_transfer_binder(const struct cred *from,
 
 	return avc_has_perm(cred_sid(from), cred_sid(to),
 			    SECCLASS_BINDER, BINDER__TRANSFER,
-			    NULL);
+			    NULL ,NULL);
 }
 
 static int selinux_binder_transfer_file(const struct cred *from,
