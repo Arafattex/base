@@ -42,20 +42,13 @@
 #define ARM64_HAS_DCPOP				21
 #define ARM64_UNMAP_KERNEL_AT_EL0		23
 #define ARM64_HARDEN_BRANCH_PREDICTOR		24
-<<<<<<< HEAD
 #define ARM64_HARDEN_BP_POST_GUEST_EXIT		25
 #define ARM64_SSBD				26
 #define ARM64_MISMATCHED_CACHE_TYPE		27
 #define ARM64_SSBS				28
 
-=======
-#define ARM64_SSBD				25
-#define ARM64_MISMATCHED_CACHE_TYPE		26
-#define ARM64_SSBS				27
-#define ARM64_WORKAROUND_1188873		28
-#define ARM64_SPECTRE_BHB			29
->>>>>>> 0b1c660d8516... KVM: arm64: Add templates for BHB mitigation sequences
 
-#define ARM64_NCAPS				30
+#define ARM64_NCAPS				29
 
 #endif /* __ASM_CPUCAPS_H */
+
